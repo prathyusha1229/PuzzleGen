@@ -66,6 +66,13 @@ def health():
     return jsonify({"status": "ok"})
 
 
+@app.errorhandler(Exception)
+def handle_any_exception(e):
+    import traceback
+    traceback.print_exc()
+    return jsonify({"error": str(e)}), 500
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
-    app.run(port=port, debug=True)
+    app.run(port=port, debug=False)
